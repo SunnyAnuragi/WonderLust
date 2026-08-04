@@ -12,7 +12,7 @@ const Listing = require("./models/listing.js");
 const path = require("path");
 const methodOverride = require("method-override");
 const ejsMate = require("ejs-mate");
-
+const wrapAsync = require("./utils/wrapasync.js");
 
 app.use(methodOverride("_method"));
 app.use(express.urlencoded({ extended: true }));
@@ -57,12 +57,15 @@ app.get("/listings/:id", async (req, res) => {
   res.render("listings/show.ejs", { listing });
 });
 
-// post new listing route
-app.post("/listings", async (req, res) => {
-  const newListing = new Listing(req.body.listing);
-  await newListing.save();
-  res.redirect("/listings");
-});
+// post new listing route create route
+app.post(
+  "/listings",
+  wrapAsync(async (req, res) => {
+    const newListing = new Listing(req.body.listing);
+    await newListing.save();
+    res.redirect("/listings");
+  }),
+);
 
 //Edit Route
 app.get("/listings/:id/edit", async (req, res) => {
@@ -84,6 +87,11 @@ app.delete("/listings/:id", async (req, res) => {
   let deletedListing = await Listing.findByIdAndDelete(id);
   console.log(deletedListing);
   res.redirect("/listings");
+});
+
+app.use((err, req, res, next) => {
+  let {message = "something went wrong"} = err;
+  res.render("error.ejs" , {message});
 });
 // app.get("/testlisting", async (req, res) => {
 //   let sampletesting = new Listing({
