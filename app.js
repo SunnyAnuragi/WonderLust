@@ -13,6 +13,7 @@ const path = require("path");
 const methodOverride = require("method-override");
 const ejsMate = require("ejs-mate");
 const wrapAsync = require("./utils/wrapasync.js");
+const { listingSchema } = require("./schema.js");
 
 app.use(methodOverride("_method"));
 app.use(express.urlencoded({ extended: true }));
@@ -61,6 +62,11 @@ app.get("/listings/:id", async (req, res) => {
 app.post(
   "/listings",
   wrapAsync(async (req, res) => {
+    let result = listingSchema.validate(req.body);
+    if(result.error){
+      throw new ExpressError(400 , result.error)
+    }
+
     const newListing = new Listing(req.body.listing);
     await newListing.save();
     res.redirect("/listings");
@@ -90,8 +96,8 @@ app.delete("/listings/:id", async (req, res) => {
 });
 
 app.use((err, req, res, next) => {
-  let {message = "something went wrong"} = err;
-  res.render("error.ejs" , {message});
+  let { message = "something went wrong" } = err;
+  res.render("error.ejs", { message });
 });
 // app.get("/testlisting", async (req, res) => {
 //   let sampletesting = new Listing({
