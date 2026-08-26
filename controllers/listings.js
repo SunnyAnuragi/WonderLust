@@ -1,4 +1,9 @@
 const Listing = require("../models/listing.js");
+const nominatim = require("nominatim-client");
+const client = nominatim.createClient({
+  useragent: "WanderLust",
+  referer: "http://localhost:8080",
+});
 
 // index
 module.exports.index = async (req, res) => {
@@ -6,12 +11,12 @@ module.exports.index = async (req, res) => {
   res.render("listings/index.ejs", { allListings });
 };
 
-// render new form 
+// render new form
 module.exports.renderNewForm = (req, res) => {
   res.render("listings/new.ejs");
 };
 
-// show listings 
+// show listings
 module.exports.showListing = async (req, res) => {
   let { id } = req.params;
   const listing = await Listing.findById(id)
@@ -30,14 +35,51 @@ module.exports.showListing = async (req, res) => {
 
 // create listings
 module.exports.createListing = async (req, res) => {
-  const newListing = new Listing(req.body.listing);
-  newListing.owner = req.user._id;
-  await newListing.save();
-  req.flash("success", "New Listing Created!");
-  res.redirect("/listings");
+  try {
+    const newListing = new Listing(req.body.listing);
+
+    newListing.owner = req.user._id;
+
+    if (req.file) {
+      newListing.image = {
+        url: req.file.path,
+        filename: req.file.filename,
+      };
+    }
+
+    // Convert location → latitude/longitude
+    const result = await client.search({
+      q: `${newListing.location}, ${newListing.country}`,
+      addressdetails: "1",
+    });
+
+    if (result.length === 0) {
+      req.flash("error", "Location could not be found!");
+      return res.redirect("/listings/new");
+    }
+
+    // GeoJSON format
+    newListing.geometry = {
+      type: "Point",
+      coordinates: [
+        Number(result[0].lon), // longitude FIRST
+        Number(result[0].lat), // latitude SECOND
+      ],
+    };
+
+    await newListing.save();
+
+    req.flash("success", "New Listing Created!");
+    res.redirect("/listings");
+  } catch (error) {
+    console.log(error);
+
+    req.flash("error", "Something went wrong while creating listing.");
+    res.redirect("/listings/new");
+  }
 };
 
-// render edit form 
+// render edit form
 module.exports.renderEditForm = async (req, res) => {
   let { id } = req.params;
   const listing = await Listing.findById(id);
@@ -45,14 +87,27 @@ module.exports.renderEditForm = async (req, res) => {
     req.flash("error", "Listing not exist!");
     res.redirect("/listings");
   }
-  res.render("listings/edit.ejs", { listing });
+  let originalImageurl = listing.image.url;
+  originalImageurl = originalImageurl.replace("/upload", "/upload/w_250");
+  res.render("listings/edit.ejs", { listing, originalImageurl });
 };
 
 // update listings
 module.exports.updateListing = async (req, res) => {
   let { id } = req.params;
+  const listing = await Listing.findByIdAndUpdate(
+    id,
+    { ...req.body.listing },
+    { new: true },
+  );
+  if (req.file) {
+    listing.image = {
+      url: req.file.path,
+      filename: req.file.filename,
+    };
+    await listing.save();
+  }
 
-  await Listing.findByIdAndUpdate(id, { ...req.body.listing });
   req.flash("success", "Listing Updated!");
   res.redirect(`/listings/${id}`);
 };

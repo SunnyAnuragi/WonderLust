@@ -10,6 +10,8 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
+    "@maplibre/maplibre-gl-geocoder": "^1.9.4",
+    "cloudinary": "^1.41.3",
     "connect-flash": "^0.1.1",
     "cookie-parser": "^1.4.7",
     "dotenv": "^17.4.2",
@@ -20,6 +22,9 @@
     "joi": "^18.2.3",
     "method-override": "^3.0.0",
     "mongoose": "^9.9.0",
+    "multer": "^2.2.0",
+    "multer-storage-cloudinary": "^4.0.0",
+    "nominatim-client": "^3.2.1",
     "passport": "^0.7.0",
     "passport-local": "^1.0.0",
     "passport-local-mongoose": "^9.1.0"

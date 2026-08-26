@@ -1,6 +1,9 @@
 <nav class="navbar navbar-expand-md bg-body-light border-bottom sticky-top">
   <div class="container-fluid">
-    <a class="navbar-brand" href="/"><i class="fa-solid fa-compass"></i></a>
+    <a class="navbar-brand" href="/listings">
+      <i class="fa-solid fa-compass"></i>
+    </a>
+
     <button
       class="navbar-toggler"
       type="button"
@@ -12,21 +15,49 @@
     >
       <span class="navbar-toggler-icon"></span>
     </button>
+
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
       <div class="navbar-nav">
-        <a class="nav-link" href="/">Home</a>
-        <a class="nav-link" href="/listings">All Listings</a>
-        <a class="nav-link" href="/listings/new">Add New Listing</a>
+        <a class="nav-link" href="/listings">Explore</a>
       </div>
+
       <div class="navbar-nav ms-auto">
-        <% if(!currentUser){ %> 
-          <a class="nav-link" href="/signUp">signUp</a>
-          <a class="nav-link" href="/login">LogIn</a>
+        <form class="search-form" role="search">
+          <div class="search-box">
+            <i class="fa-solid fa-magnifying-glass"></i>
+
+            <input
+              class="search-input"
+              type="search"
+              placeholder="Search destinations"
+              aria-label="Search"
+            />
+
+            <button class="search-btn" type="submit">
+              Search
+            </button>
+          </div>
+        </form>
+
+        <a class="nav-link" href="/listings/new">
+          AIR BNB Your Home
+        </a>
+
+        <% if(!currentUser){ %>
+          <a class="nav-link" href="/signUp">
+            <b>signUp</b>
+          </a>
+
+          <a class="nav-link" href="/login">
+            <b>LogIn</b>
+          </a>
         <% } %>
 
-        <% if(currentUser){ %> 
-        <a class="nav-link" href="/logout">LogOut</a>
-         <% } %>
+        <% if(currentUser){ %>
+          <a class="nav-link" href="/logout">
+            <b>LogOut</b>
+          </a>
+        <% } %>
       </div>
     </div>
   </div>
