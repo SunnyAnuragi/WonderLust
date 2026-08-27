@@ -69,7 +69,7 @@ async function runTests() {
     console.log('\nTest 1: Fetching all listings...');
     const resListings = await makeRequest({ path: '/listings', method: 'GET' });
     console.log(`Status Code: ${resListings.statusCode}`);
-    if (resListings.statusCode === 200 && resListings.data.includes('All Listings')) {
+    if (resListings.statusCode === 200 && resListings.data.includes('All Stays') || resListings.data.includes('Featured Destinations') || resListings.data.includes('All Listings')) {
       console.log('✅ Index page works.');
     } else {
       console.log('❌ Index page failed or layout incorrect.');
@@ -239,7 +239,12 @@ async function runTests() {
 
     // 9. DELETE /listings/:id/reviews/:reviewId (Delete review)
     console.log('\nTest 9: Deleting review...');
-    const resShowPageForDelete = await makeRequest({ path: `/listings/${testListingId}`, method: 'GET' });
+    // We pass the Cookie header in this GET request to see the delete review form button
+    const resShowPageForDelete = await makeRequest(
+      { path: `/listings/${testListingId}`, method: 'GET' },
+      null,
+      { 'Cookie': cookie }
+    );
     const reviewDeleteRegex = /\/listings\/[a-f\d]{24}\/reviews\/([a-f\d]{24})\?_method=DELETE/;
     const reviewMatch = resShowPageForDelete.data.match(reviewDeleteRegex);
     if (reviewMatch) {

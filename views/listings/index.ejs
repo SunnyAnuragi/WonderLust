@@ -1,190 +1,146 @@
 <% layout("/layouts/boilerplate.ejs") %>
 
-<style>
-  .filters {
-  display: flex;
-  flex-wrap: wrap;
-}
+<div class="filters-container mt-3">
+  <!-- Horizontal Category Filters Bar -->
+  <div class="filters">
+    <% const activeCategory = typeof category !== 'undefined' ? category : ''; %>
+    
+    <a href="/listings?category=Trending" class="text-decoration-none <%= activeCategory === 'Trending' ? 'active' : '' %>">
+      <div class="filter <%= activeCategory === 'Trending' ? 'active' : '' %>">
+        <div><i class="fa-solid fa-fire"></i></div>
+        Trending
+      </div>
+    </a>
 
-.filter {
-  margin-top: 2rem;
-  text-align: center;
-  margin-right: 2rem;
-  opacity: 0.7;
-  transition: all 0.2s ease;
-}
+    <a href="/listings?category=Rooms" class="text-decoration-none <%= activeCategory === 'Rooms' ? 'active' : '' %>">
+      <div class="filter <%= activeCategory === 'Rooms' ? 'active' : '' %>">
+        <div><i class="fa-solid fa-bed"></i></div>
+        Rooms
+      </div>
+    </a>
 
-.filter:hover {
-  opacity: 1;
-  cursor: pointer;
-  transform: translateY(-3px);
-}
-.tax-info{
-  display: none;
-}
-.tax-toggle {
-  margin-left: auto;
-  margin-top: 2rem;
-  padding: 0.7rem 1rem;
+    <a href="/listings?category=Iconic cities" class="text-decoration-none <%= activeCategory === 'Iconic cities' ? 'active' : '' %>">
+      <div class="filter <%= activeCategory === 'Iconic cities' ? 'active' : '' %>">
+        <div><i class="fa-solid fa-city"></i></div>
+        Iconic cities
+      </div>
+    </a>
 
-  border: 1px solid #ddd;
-  border-radius: 2rem;
+    <a href="/listings?category=Mountains" class="text-decoration-none <%= activeCategory === 'Mountains' ? 'active' : '' %>">
+      <div class="filter <%= activeCategory === 'Mountains' ? 'active' : '' %>">
+        <div><i class="fa-solid fa-mountain"></i></div>
+        Mountains
+      </div>
+    </a>
 
-  display: flex;
-  align-items: center;
+    <a href="/listings?category=Castles" class="text-decoration-none <%= activeCategory === 'Castles' ? 'active' : '' %>">
+      <div class="filter <%= activeCategory === 'Castles' ? 'active' : '' %>">
+        <div><i class="fa-brands fa-fort-awesome"></i></div>
+        Castles
+      </div>
+    </a>
 
-  background-color: #fff;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    <a href="/listings?category=Amazing pools" class="text-decoration-none <%= activeCategory === 'Amazing pools' ? 'active' : '' %>">
+      <div class="filter <%= activeCategory === 'Amazing pools' ? 'active' : '' %>">
+        <div><i class="fa-solid fa-person-swimming"></i></div>
+        Amazing pools
+      </div>
+    </a>
 
-  transition: all 0.2s ease;
-}
+    <a href="/listings?category=Farms" class="text-decoration-none <%= activeCategory === 'Farms' ? 'active' : '' %>">
+      <div class="filter <%= activeCategory === 'Farms' ? 'active' : '' %>">
+        <div><i class="fa-solid fa-cow"></i></div>
+        Farms
+      </div>
+    </a>
 
-.tax-toggle:hover {
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
-}
+    <a href="/listings?category=Camping" class="text-decoration-none <%= activeCategory === 'Camping' ? 'active' : '' %>">
+      <div class="filter <%= activeCategory === 'Camping' ? 'active' : '' %>">
+        <div><i class="fa-solid fa-campground"></i></div>
+        Camping
+      </div>
+    </a>
 
-.tax-toggle .form-check {
-  margin: 0;
-}
+    <a href="/listings?category=Artic" class="text-decoration-none <%= activeCategory === 'Artic' ? 'active' : '' %>">
+      <div class="filter <%= activeCategory === 'Artic' ? 'active' : '' %>">
+        <div><i class="fa-regular fa-snowflake"></i></div>
+        Artic
+      </div>
+    </a>
 
-.tax-toggle .form-check-label {
-  font-size: 0.9rem;
-  font-weight: 500;
-  margin-left: 0.4rem;
-  white-space: nowrap;
-}
-
-.tax-toggle .form-check-input {
-  cursor: pointer;
-}
-
-.tax-toggle .form-check-input:checked {
-  background-color: #ff385c;
-  border-color: #ff385c;
-}
-</style>
-<h3>All Listings</h3>
-<div class="filters">
-
-  <a href="/listings?category=Trending" class="text-decoration-none text-dark">
-    <div class="filter">
-      <div><i class="fa-solid fa-fire"></i></div>
-      Trending
-    </div>
-  </a>
-
-  <a href="/listings?category=Rooms" class="text-decoration-none text-dark">
-    <div class="filter">
-      <div><i class="fa-solid fa-bed"></i></div>
-      Rooms
-    </div>
-  </a>
-
-  <a href="/listings?category=Iconic cities" class="text-decoration-none text-dark">
-    <div class="filter">
-      <div><i class="fa-solid fa-city"></i></div>
-      Iconic cities
-    </div>
-  </a>
-
-  <a href="/listings?category=Mountains" class="text-decoration-none text-dark">
-    <div class="filter">
-      <div><i class="fa-solid fa-mountain"></i></div>
-      Mountains
-    </div>
-  </a>
-
-  <a href="/listings?category=Castles" class="text-decoration-none text-dark">
-    <div class="filter">
-      <div><i class="fa-brands fa-fort-awesome"></i></div>
-      Castles
-    </div>
-  </a>
-
-  <a href="/listings?category=Amazing pools" class="text-decoration-none text-dark">
-    <div class="filter">
-      <div><i class="fa-solid fa-person-swimming"></i></div>
-      Amazing pools
-    </div>
-  </a>
-
-  <a href="/listings?category=Farms" class="text-decoration-none text-dark">
-    <div class="filter">
-      <div><i class="fa-solid fa-cow"></i></div>
-      Farms
-    </div>
-  </a>
-
-  <a href="/listings?category=Camping" class="text-decoration-none text-dark">
-    <div class="filter">
-      <div><i class="fa-solid fa-campground"></i></div>
-      Camping
-    </div>
-  </a>
-
-  <a href="/listings?category=Artic" class="text-decoration-none text-dark">
-    <div class="filter">
-      <div><i class="fa-regular fa-snowflake"></i></div>
-      Artic
-    </div>
-  </a>
-
-  <a href="/listings?category=Beaches" class="text-decoration-none text-dark">
-    <div class="filter">
-      <div><i class="fa-solid fa-umbrella-beach"></i></div>
-      Beaches
-    </div>
-  </a>
-
-  <div class="tax-toggle">
-    <div class="form-check-reverse form-switch">
+    <a href="/listings?category=Beaches" class="text-decoration-none <%= activeCategory === 'Beaches' ? 'active' : '' %>">
+      <div class="filter <%= activeCategory === 'Beaches' ? 'active' : '' %>">
+        <div><i class="fa-solid fa-umbrella-beach"></i></div>
+        Beaches
+      </div>
+    </a>
+  </div>
+  
+  <!-- Modern Tax Switch Toggle -->
+  <div class="tax-toggle ms-auto">
+    <div class="form-check form-switch form-check-reverse m-0 p-0 d-flex align-items-center gap-2">
       <input
-        class="form-check-input"
+        class="form-check-input ms-2"
         type="checkbox"
         role="switch"
         id="flexSwitchCheckDefault"
       >
-
-      <label
-        class="form-check-label"
-        for="flexSwitchCheckDefault"
-      >
-        Display total after taxes
-      </label>
+      <label class="form-check-label text-nowrap" for="flexSwitchCheckDefault">Display total after taxes</label>
     </div>
   </div>
-
 </div>
 
-<div class="row row-cols-lg-3 row-cols-md-2 row-cols-sm-1 row-cols-1 g-4 mt-3">
-  <% for(let listing of allListings) { %>
-    
-    <div class="col-md-4 mb-4">
-      <a href="/listings/<%= listing._id %>" class="text-decoration-none text-dark d-block">
-        <div class="card h-100 listing-card">
-          <img
-            src="<%= listing.image.url %>"
-            class="card-img-top"
-            alt="listing image"
-            style="height:20rem; object-fit:cover;"
+<!-- All Listings Heading -->
+<div class="row mt-4">
+  <div class="col-12">
+    <h3 class="fw-bold mb-3 text-dark">Stays in Featured Destinations</h3>
+  </div>
+</div>
+
+<!-- Stays Cards Grid -->
+<% if (allListings.length === 0) { %>
+  <div class="empty-state my-5">
+    <i class="fa-solid fa-map-location-dot"></i>
+    <h4 class="fw-bold mt-3">No stays found</h4>
+    <p class="text-muted">Try checking another destination or category filter.</p>
+    <a href="/listings" class="btn btn-dark-redesign mt-3">Reset Filters</a>
+  </div>
+<% } else { %>
+  <div class="row row-cols-xl-4 row-cols-lg-3 row-cols-md-2 row-cols-sm-1 row-cols-1 g-4">
+    <% for(let listing of allListings) { %>
+      <div class="col">
+        <a href="/listings/<%= listing._id %>" class="text-decoration-none text-dark d-block">
+          <div class="card h-100 listing-card">
+            <!-- Card Image and Overlay Container -->
+            <div class="card-img-wrapper">
+              <img
+                src="<%= listing.image.url %>"
+                class="card-img-top"
+                alt="property listing image"
+                loading="lazy"
+              >
+              <div class="card-img-overlay"></div>
+            </div>
             
-          >
-          <div class="card-img-overlay"></div>
-          <div class="card-body">
-            <h5 class="card-title"><%= listing.title %></h5>
-
-            <p class="card-text">
-              &#8377; <%= listing.price.toLocaleString("en-IN") %> / Night 
-              <i class="tax-info"> &nbsp; &nbsp;+ 18% GST</i>
-            </p>
+            <!-- Card Body / Meta -->
+            <div class="card-body-redesign">
+              <h5 class="card-title-redesign"><%= listing.title %></h5>
+              <p class="card-location-redesign">
+                <%= listing.location %>, <%= listing.country %>
+              </p>
+              <p class="card-price-redesign mb-0">
+                <b>&#8377; <%= listing.price.toLocaleString("en-IN") %></b> / night
+                <i class="tax-info ms-1"> &nbsp;+ 18% GST</i>
+              </p>
+            </div>
           </div>
-        </div>
-      </a>
-    </div>
+        </a>
+      </div>
+    <% } %>
+  </div>
+<% } %>
 
-  <% } %>
-</div>
-
+<!-- Tax Switch Toggle Logic -->
 <script>
   let taxSwitch = document.getElementById("flexSwitchCheckDefault");
   taxSwitch.addEventListener("click" , ()=>{

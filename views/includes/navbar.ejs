@@ -1,9 +1,12 @@
-<nav class="navbar navbar-expand-md bg-body-light border-bottom sticky-top">
-  <div class="container-fluid">
+<nav class="navbar navbar-expand-md sticky-top">
+  <div class="container">
+    <!-- Brand / Logo -->
     <a class="navbar-brand" href="/listings">
       <i class="fa-solid fa-compass"></i>
+      <span>WonderLust</span>
     </a>
 
+    <!-- Hamburger menu toggler for mobile -->
     <button
       class="navbar-toggler"
       type="button"
@@ -17,15 +20,11 @@
     </button>
 
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-      <div class="navbar-nav">
-        <a class="nav-link" href="/listings">Explore</a>
-      </div>
-
-      <div class="navbar-nav ms-auto">
-        <form class="search-form" role="search" action = "/listings" method = "GET">
+      <!-- Search destinations form centered on desktop -->
+      <div class="mx-auto d-none d-md-block">
+        <form class="search-form" role="search" action="/listings" method="GET">
           <div class="search-box">
             <i class="fa-solid fa-magnifying-glass"></i>
-
             <input
               class="search-input"
               type="search"
@@ -33,31 +32,55 @@
               aria-label="Search"
               name="search"
             />
-
-            <button class="search-btn" type="submit">
-              Search
-            </button>
+            <button class="search-btn" type="submit">Search</button>
           </div>
         </form>
+      </div>
 
-        <a class="nav-link" href="/listings/new">
-          AIR BNB Your Home
-        </a>
+      <!-- Mobile Search Form (only visible on mobile/tablet collapsed navbar) -->
+      <div class="d-block d-md-none my-3">
+        <form class="search-form w-100" role="search" action="/listings" method="GET">
+          <div class="search-box w-100">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <input
+              class="search-input"
+              type="search"
+              placeholder="Search destinations"
+              aria-label="Search"
+              name="search"
+            />
+            <button class="search-btn" type="submit">Search</button>
+          </div>
+        </form>
+      </div>
+
+      <!-- Right Navigation Links -->
+      <div class="navbar-nav align-items-center gap-1 ms-auto">
+        <a class="nav-link" href="/listings">Explore Stays</a>
+        <a class="nav-link ms-md-2" href="/listings/new">AIR BNB Your Home</a>
 
         <% if(!currentUser){ %>
-          <a class="nav-link" href="/signUp">
-            <b>signUp</b>
+          <a class="nav-link btn btn-outline-dark-redesign ms-md-3 px-3 py-2 text-dark font-weight-bold" href="/signUp">
+            signUp
           </a>
-
-          <a class="nav-link" href="/login">
-            <b>LogIn</b>
+          <a class="nav-link btn btn-accent text-white ms-md-2 px-3 py-2 font-weight-bold" href="/login">
+            LogIn
           </a>
         <% } %>
 
         <% if(currentUser){ %>
-          <a class="nav-link" href="/logout">
-            <b>LogOut</b>
-          </a>
+          <div class="nav-item dropdown ms-md-3">
+            <a class="nav-link dropdown-toggle btn btn-outline-dark-redesign px-3 py-2 text-dark" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <i class="fa-solid fa-user me-2"></i><%= currentUser.username %>
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end border-0 shadow-lg mt-2 p-2 rounded-3">
+              <li>
+                <a class="dropdown-item py-2 px-3 rounded-2 text-danger fw-bold" href="/logout">
+                  <i class="fa-solid fa-right-from-bracket me-2"></i>LogOut
+                </a>
+              </li>
+            </ul>
+          </div>
         <% } %>
       </div>
     </div>
