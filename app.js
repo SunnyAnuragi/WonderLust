@@ -58,7 +58,7 @@ const sessionOptions = {
   store: store,
   secret: process.env.SECRET,
   resave: false,
-  saveUninitialized: true,
+  saveUninitialized: false,
   cookie: {
     expires: Date.now() + 7 * 24 * 60 * 60 * 1000,
     maxAge: 7 * 24 * 60 * 60 * 1000,
@@ -67,7 +67,7 @@ const sessionOptions = {
 };
 
 app.get("/", (req, res) => {
-  res.send("Hii I am root");
+  res.send("/listings");
 });
 
 app.use(session(sessionOptions));
@@ -86,15 +86,6 @@ app.use((req, res, next) => {
   next();
 });
 
-// app.get("/demouser", async (req, res) => {
-//   let fakeUser = new User({
-//     email: "student@gmail.com",
-//     username: "kirmada",
-//   });
-//   let registerUser = await User.register(fakeUser, "helloWorld");
-//   res.send(registerUser);
-// });
-
 app.use("/listings", listingRouter);
 app.use("/listings/:id/reviews", reviewRouter);
 app.use("/", userRouter);
@@ -104,18 +95,9 @@ app.use((err, req, res, next) => {
   console.error("Express Error Handler caught:", err);
   res.render("error.ejs", { message });
 });
-// app.get("/testlisting", async (req, res) => {
-//   let sampletesting = new Listing({
-//     title: "My new Villa",
-//     description: "by beach",
-//     image: "",
-//     price: 10000,
-//     location: "Goa",
-//   });
-//   await sampletesting.save();
-//   res.send("Test listing created");
-// });
 
-app.listen(8080, () => {
-  console.log("server is listening on 8080");
+const PORT = process.env.PORT || 8080;
+
+app.listen(PORT, () => {
+  console.log(`Server is listening on port ${PORT}`);
 });
