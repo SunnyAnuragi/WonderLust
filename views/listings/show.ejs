@@ -44,8 +44,7 @@
 
     <h4>Where you'll be</h4>
 
-    <div id="map" data-coordinates="<%= JSON.stringify(listing.geometry.coordinates) %>"></div>
-
+    <div id="map" data-coordinates="<%= JSON.stringify(listing.geometry && listing.geometry.coordinates ? listing.geometry.coordinates : [77.209, 28.613]) %>"></div>
   </div>
 
   <!-- Edit / Delete buttons for Owner -->

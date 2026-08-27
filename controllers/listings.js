@@ -7,7 +7,15 @@ const client = nominatim.createClient({
 
 // index
 module.exports.index = async (req, res) => {
-  const allListings = await Listing.find({});
+  let { search, category } = req.query;
+  let query = {};
+  if (search) {
+    query.location = { $regex: search, $options: "i" };
+  }
+  if (category) {
+    query.category = category;
+  }
+  const allListings = await Listing.find(query);
   res.render("listings/index.ejs", { allListings });
 };
 

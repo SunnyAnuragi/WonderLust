@@ -88,6 +88,7 @@ app.use("/", userRouter);
 
 app.use((err, req, res, next) => {
   let { message = "something went wrong" } = err;
+  console.error("Express Error Handler caught:", err);
   res.render("error.ejs", { message });
 });
 // app.get("/testlisting", async (req, res) => {

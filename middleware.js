@@ -55,17 +55,37 @@ module.exports.validateReview = (req, res, next) => {
   }
 };
 
-
 module.exports.isReviewAuthor = async (req, res, next) => {
-  let { id , reviewId } = req.params;
+  let { id, reviewId } = req.params;
   let review = await Review.findById(reviewId);
   if (!review) {
     req.flash("error", "Review not exist!");
     return res.redirect("/listings");
   }
-  if (!req.user._id.equals(review.author)){
+  if (!req.user._id.equals(review.author)) {
     req.flash("error", "Permission denied");
     return res.redirect(`/listings/${id}`);
+  }
+  next();
+};
+
+// Middleware to parse flat Multer fields with bracket notation into nested objects
+module.exports.parseNestedBody = (req, res, next) => {
+  if (req.body) {
+    const nested = {};
+    for (const key in req.body) {
+      const match = key.match(/^(\w+)\[(\w+)\]$/);
+      if (match) {
+        const [, parent, child] = match;
+        if (!nested[parent]) {
+          nested[parent] = {};
+        }
+        nested[parent][child] = req.body[key];
+      } else {
+        nested[key] = req.body[key];
+      }
+    }
+    req.body = { ...req.body, ...nested };
   }
   next();
 };

@@ -20,11 +20,12 @@ async function geocodeListings() {
     await mongoose.connect(dbUrl);
     console.log("Connected to database");
 
-    // Find old listings that don't have geometry
+    // Find old listings that don't have geometry or have empty coordinates
     const listings = await Listing.find({
       $or: [
         { geometry: { $exists: false } },
         { "geometry.coordinates": { $exists: false } },
+        { "geometry.coordinates": { $size: 0 } },
       ],
     });
 

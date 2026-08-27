@@ -65,51 +65,92 @@
 </style>
 <h3>All Listings</h3>
 <div class="filters">
-  <div class = "filter">
-    <div><i class="fa-solid fa-fire"></i></div>
-    Trending
-  </div>
-  <div class = "filter">
-    <div><i class="fa-solid fa-bed"></i></div>
-    Rooms
-  </div>
-  <div class = "filter">
-    <div><i class="fa-solid fa-city"></i></i></div>
-    Iconic cities
-  </div>
-  <div class = "filter">
-    <div><i class="fa-solid fa-mountain"></i></div>
-    Mountains
-  </div>
-  <div class = "filter">
-    <div><i class="fa-brands fa-fort-awesome"></i></div>
-    Castles
-  </div>
-  <div class = "filter">
-    <div><i class="fa-solid fa-person-swimming"></i></div>
-    Amazing pools
-  </div>
-  <div class = "filter">
-    <div><i class="fa-solid fa-cow"></i></div>
-    Farms
-  </div>
-  <div class = "filter">
-    <div><i class="fa-solid fa-campground"></i></div>
-    Camping
-  </div>
-  <div class = "filter">
-    <div><i class="fa-regular fa-snowflake"></i></div>
-    Artic
-  </div>
-  <div class="filter">
-    <div><i class="fa-solid fa-umbrella-beach"></i></div>
-    Beaches
-  </div>
-  
+
+  <a href="/listings?category=Trending" class="text-decoration-none text-dark">
+    <div class="filter">
+      <div><i class="fa-solid fa-fire"></i></div>
+      Trending
+    </div>
+  </a>
+
+  <a href="/listings?category=Rooms" class="text-decoration-none text-dark">
+    <div class="filter">
+      <div><i class="fa-solid fa-bed"></i></div>
+      Rooms
+    </div>
+  </a>
+
+  <a href="/listings?category=Iconic cities" class="text-decoration-none text-dark">
+    <div class="filter">
+      <div><i class="fa-solid fa-city"></i></div>
+      Iconic cities
+    </div>
+  </a>
+
+  <a href="/listings?category=Mountains" class="text-decoration-none text-dark">
+    <div class="filter">
+      <div><i class="fa-solid fa-mountain"></i></div>
+      Mountains
+    </div>
+  </a>
+
+  <a href="/listings?category=Castles" class="text-decoration-none text-dark">
+    <div class="filter">
+      <div><i class="fa-brands fa-fort-awesome"></i></div>
+      Castles
+    </div>
+  </a>
+
+  <a href="/listings?category=Amazing pools" class="text-decoration-none text-dark">
+    <div class="filter">
+      <div><i class="fa-solid fa-person-swimming"></i></div>
+      Amazing pools
+    </div>
+  </a>
+
+  <a href="/listings?category=Farms" class="text-decoration-none text-dark">
+    <div class="filter">
+      <div><i class="fa-solid fa-cow"></i></div>
+      Farms
+    </div>
+  </a>
+
+  <a href="/listings?category=Camping" class="text-decoration-none text-dark">
+    <div class="filter">
+      <div><i class="fa-solid fa-campground"></i></div>
+      Camping
+    </div>
+  </a>
+
+  <a href="/listings?category=Artic" class="text-decoration-none text-dark">
+    <div class="filter">
+      <div><i class="fa-regular fa-snowflake"></i></div>
+      Artic
+    </div>
+  </a>
+
+  <a href="/listings?category=Beaches" class="text-decoration-none text-dark">
+    <div class="filter">
+      <div><i class="fa-solid fa-umbrella-beach"></i></div>
+      Beaches
+    </div>
+  </a>
+
   <div class="tax-toggle">
     <div class="form-check-reverse form-switch">
-      <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault">
-      <label class="form-check-label" for="flexSwitchCheckDefault">Display total after taxes</label>
+      <input
+        class="form-check-input"
+        type="checkbox"
+        role="switch"
+        id="flexSwitchCheckDefault"
+      >
+
+      <label
+        class="form-check-label"
+        for="flexSwitchCheckDefault"
+      >
+        Display total after taxes
+      </label>
     </div>
   </div>
 
