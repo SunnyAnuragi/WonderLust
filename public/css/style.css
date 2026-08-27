@@ -198,22 +198,26 @@ body {
   border-bottom: 2px solid var(--primary-accent);
 }
 
-/* ==========================================================================
-   TAX SWITCH REDESIGN
-   ========================================================================== */
+
+/* =========================================================
+   TAX SWITCH
+   ========================================================= */
+
 .tax-toggle {
   border: 1px solid var(--border-color);
-  border-radius: 12px;
-  padding: 0.75rem 1.25rem;
+  border-radius: 14px;
+
+  padding: 0.65rem 1rem;
+
   background-color: var(--white);
   box-shadow: var(--shadow-subtle);
+
   display: flex;
   align-items: center;
-  white-space: nowrap;
+
   height: 48px;
+
   transition: var(--transition-smooth);
-  font-weight: 600;
-  font-size: 0.85rem;
 }
 
 .tax-toggle:hover {
@@ -221,20 +225,57 @@ body {
   border-color: #c1c1c1;
 }
 
-.tax-toggle .form-check-input {
+
+/* Switch + text wrapper */
+.tax-switch-content {
+  display: flex;
+  align-items: center;
+
+  gap: 10px;
+
+  white-space: nowrap;
+}
+
+
+/* Switch */
+.tax-switch-content .form-check-input {
   width: 2.6em;
   height: 1.4em;
-  margin-top: 0.1em;
+
+  margin: 0;
+
+  flex-shrink: 0;
+
   cursor: pointer;
 }
 
-.tax-toggle .form-check-input:checked {
+
+/* Checked state */
+.tax-switch-content .form-check-input:checked {
   background-color: var(--primary-accent);
   border-color: var(--primary-accent);
 }
 
+
+/* Label */
+.tax-switch-content .form-check-label {
+  margin: 0;
+
+  font-size: 0.85rem;
+  font-weight: 600;
+
+  line-height: 1.2;
+
+  cursor: pointer;
+
+  color: var(--text-primary);
+}
+
+
+/* Tax information */
 .tax-info {
   display: none;
+
   font-weight: 600;
   color: var(--primary-accent);
 }

@@ -1,4 +1,7 @@
 {
+  "engines": {
+    "node": "v24.18.0"
+  },
   "name": "wonderlust",
   "version": "1.0.0",
   "description": "",
@@ -13,6 +16,7 @@
     "@maplibre/maplibre-gl-geocoder": "^1.9.4",
     "cloudinary": "^1.41.3",
     "connect-flash": "^0.1.1",
+    "connect-mongo": "^6.0.0",
     "cookie-parser": "^1.4.7",
     "dotenv": "^17.4.2",
     "ejs": "^6.0.1",
